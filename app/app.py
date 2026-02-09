@@ -1,4 +1,5 @@
 AWS_ACCESS_KEY_ID = "AKIA1234567890TEST"
+AWSSSS_ACCESS_KEY_ID = "AKIA1234567890TEST"
 from flask import Flask, request
 import os
 
