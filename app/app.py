@@ -1,7 +1,7 @@
 AWS_ACCESS_KEY_ID = "AKIA1234567890TEST"
 AWS_ACCESS_KEY_ID = "AKIA1234567890TESTCHANGED"
 from flask import Flask, request
-import os
+import os 
 AWS_SECRET_ACCESS_KEY = "AKIA_ATTACKER_SIMULATION_KEY"
 app = Flask(__name__)
 
