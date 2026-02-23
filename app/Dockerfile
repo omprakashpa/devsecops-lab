@@ -1,7 +1,13 @@
-FROM python:3.8
+FROM ubuntu:18.04
+
+USER root
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    vim \
+    openssl
 
 WORKDIR /app
 COPY . .
-RUN pip install -r requirements.txt
 
-CMD ["python", "app/app.py"]
+CMD ["bash"]
