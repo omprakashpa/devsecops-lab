@@ -1,0 +1,11 @@
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install -y docker.io curl
+
+# Docker socket abuse potential
+VOLUME /var/run/docker.sock   # privilege escalation ❌
+
+WORKDIR /app
+COPY . .
+
+CMD ["bash"]
