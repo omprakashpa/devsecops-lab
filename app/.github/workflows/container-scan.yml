@@ -1,0 +1,27 @@
+name: Container Security Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Get code
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Step 2: Build Docker Image
+    - name: Build Docker image
+      run: docker build -t demo-app:1.0 .
+
+    # Step 3: Scan Docker Image with Snyk
+    - name: Snyk Container Scan
+      uses: snyk/actions/docker@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        image: demo-app:1.0
+        args: --severity-threshold=medium
