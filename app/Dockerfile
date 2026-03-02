@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     sudo \
     python \
     python-pip \
-    build-essential \
+    build-essential \ 
     ca-certificates
 
 WORKDIR /app
