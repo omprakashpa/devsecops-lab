@@ -1,13 +1,5 @@
-FROM ubuntu:18.04
-
-USER root
-RUN apt-get update && apt-get install -y \
-    curl \
-    wget \
-    vim \
-    openssl
-
+FROM node:12   # EOL + vulnerable base image
 WORKDIR /app
 COPY . .
-
-CMD ["bash"]
+RUN npm install
+CMD ["node", "app.js"]
