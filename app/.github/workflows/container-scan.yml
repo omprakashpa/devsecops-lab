@@ -1,25 +1,26 @@
-name: Container Security Pipeline
+name: Container Scan Pipeline
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  build-and-scan:
+  container-security:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t demo-app:1.0 .
+        run: docker build -t demo-image .
 
-      - name: Snyk Container Scan
+      - name: Run Snyk Container Scan
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: demo-app:1.0
+          image: demo-image
           args: --severity-threshold=medium
