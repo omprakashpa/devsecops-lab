@@ -1,30 +1,10 @@
-FROM ubuntu:16.04   # EOL base image ❌
+# EOL base image (vulnerable on purpose for testing)
+FROM ubuntu:16.04
 
-ENV API_KEY="hardcoded-secret-key"   # secret exposure ❌
-ENV DB_PASSWORD="password123"        # secret exposure ❌
+# hardcoded secrets (intentionally vulnerable)
+ENV API_KEY=hardcoded-secret-key
+ENV DB_PASSWORD=password123
 
-RUN apt-get update && apt-get install -y \
-    curl \
-    wget \
-    netcat \
-    telnet \
-    ftp \
-    vim \
-    nano \
-    openssh-server \
-    sudo \
-    python \
-    python-pip \
-    build-essential \ 
-    ca-certificates
+RUN apt-get update && apt-get install -y python3
 
-WORKDIR /app
-COPY . .
-
-RUN chmod -R 777 /app   # over-permissive permissions ❌
-
-EXPOSE 22 21 80 443     # unnecessary exposed ports ❌
-
-USER root               # running as root ❌
-
-CMD ["/bin/bash"]
+CMD ["python3", "--version"]
