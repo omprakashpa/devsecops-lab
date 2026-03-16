@@ -1,5 +1,5 @@
 # EOL base image (vulnerable on purpose for testing)
-FROM ubuntu:xenial-20210114
+FROM ubuntu:16.04
 
 # hardcoded secrets (intentionally vulnerable)
 ENV API_KEY=hardcoded-secret-key
