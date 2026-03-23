@@ -1,0 +1,38 @@
+name: Container Scan Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: 
+ 
+jobs:
+  container-security:
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ✅ Install Snyk CLI (Required for IaC)
+      - name: Install Snyk
+        run: npm install -g snyk
+
+      # ✅ Authenticate Snyk
+      - name: Authenticate Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+      # ✅ ADD THIS → IaC Scan Step
+      - name: Run Snyk IaC Scan
+        run: snyk iac test --severity-threshold=medium
+
+      - name: Build Docker image
+        run: docker build -t demo-image ./app
+
+      - name: Run Snyk Container Scan
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: demo-image
+          args: --severity-threshold=medium
