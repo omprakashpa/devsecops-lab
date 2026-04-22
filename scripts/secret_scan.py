@@ -4,7 +4,7 @@ import sys
 print("Scanning for secrets...")
 
 patterns = [
-    r'AKIA[0-9A-Z]{16}',
+    r'AKIA[0-9A-Z]{16}', 
     r'(?i)password\s*=\s*["\'].*["\']',
     r'(?i)api_key\s*=\s*["\'].*["\']'
 ]
