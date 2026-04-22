@@ -10,7 +10,7 @@ patterns = [
 ]
 
 with open("app/app.py", "r") as f:   # adjust if needed
-    content = f.read()
+    content = f.read() 
 
 for pattern in patterns:
     if re.search(pattern, content):
