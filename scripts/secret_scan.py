@@ -1,6 +1,6 @@
 import re
 import sys
-
+ 
 print("Scanning for secrets...")
 
 patterns = [
