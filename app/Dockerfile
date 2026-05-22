@@ -1,10 +1,42 @@
-# EOL base image (vulnerable on purpose for testing)
-FROM ubuntu:16.04
+FROM ubuntu:latest
 
-# hardcoded secrets (intentionally vulnerable)
-ENV API_KEY=hardcoded-secret-key
-ENV DB_PASSWORD=password123
+# Set environment variables
+ENV PYTHON_VERSION=3.11 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
 
-RUN apt-get update && apt-get install -y python3
+# Install Python and essential packages
+RUN apt-get update && apt-get install -y \
+    python3.11 \
+    python3-pip \
+    python3.11-venv \
+    git \
+    curl \
+    wget \
+    build-essential \
+    libssl-dev \
+    libffi-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-CMD ["python3", "--version"]
+# Set Python 3.11 as default
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements file (if it exists)
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Expose port (change as needed)
+EXPOSE 8000
+
+# Default command
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
