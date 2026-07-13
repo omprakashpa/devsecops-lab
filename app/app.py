@@ -1,21 +1,10 @@
-AWS_ACCESS_KEY_ID = "AKIA1234567890TEStTOMMM"
-AWS_ACCESS_KEY_ID = "AKIA1234567890TESTCHANGED"
-from flask import Flask, request
-import os 
-AWS_SECRET_ACCESS_KEY = "AKIA_ATTACKER_SIMULATION_KEY"
+from flask import Flask
+
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "DevSecOps Lab"
-
-@app.route("/login")
-def login():
-    user = request.args.get("user")
-    query = "SELECT * FROM users WHERE username = '%s'" % user
-    return query
+    return "Hello from Trivy Demo"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-    
-
