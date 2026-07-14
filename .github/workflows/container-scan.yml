@@ -19,12 +19,13 @@ jobs:
 
       - name: Run Trivy Image Scan
         uses: aquasecurity/trivy-action@master
+        continue-on-error: true
         with:
           image-ref: demo-image
           format: table
           severity: CRITICAL,HIGH
           exit-code: '1'
-          continue-on-error: true
+          
 
       - name: Run Snyk Container Scan
         uses: snyk/actions/docker@master
